@@ -1,12 +1,12 @@
-const axios = require('axios');
-
-const input = document.querySelector('input[name="search-text"]');
-
-axios.defaults.baseURL = 'https://pixabay.com/api/';
-
-export function getImagesByQuery(query){
+export default function getImagesByQuery(query){
  return axios.get(`/${query}`)
 .then(({data}) => data)
 .catch(console.error(error.message));
 }
+
+const input = document.querySelector('input[name="search-text"]');
+import axios from "axios";
+axios.defaults.baseURL = 'https://pixabay.com/api/';
+
+
 
