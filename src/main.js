@@ -14,7 +14,7 @@ import axios from "axios";
 
 import createGallery, {clearGallery} from './js/render-functions.js';
 import {showLoader, hideLoader}  from './js/render-functions.js';
-
+import getImagesByQuery from './js/pixabay-api.js';
 const form = document.querySelector('.form');
 const input = document.querySelector('input[name="search-text"]');
 const imageContainer = document.querySelector('.gallery');
@@ -43,7 +43,7 @@ async function onSearch(event){
         if (data.hits.length === 0) {
             iziToast.error({
                 title: 'No Results',
-                message: 'No images found for your query. Please try again.',
+                message: 'Sorry, there are no images matching your search query. Please try again!',
                 position: 'topRight'
             });
         } else {
@@ -55,6 +55,7 @@ async function onSearch(event){
             });
         }
     } catch (error) {
+        console.log(error.message);
         iziToast.error({
             title: 'Error',
             message: 'An error occurred while fetching images.',

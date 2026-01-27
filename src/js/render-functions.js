@@ -11,9 +11,6 @@ export default function createGallery(images = []){
     //             </div>`
     // })
     .join('');
-    images.refresh();
-    imageContainer.innerHTML = markup;
-    imageContainer.insertAdjacentHTML('beforeend', markup);
 };
  const gallery = document.querySelector('.gallery');
 
