@@ -1,15 +1,21 @@
-export default function createGallery(images){
-    const markup = images.map((image) => {
-        return `<div class="gallery">
-                    <a href="images/image1.jpg"><img src="images/thumbs/thumb1.jpg" alt="" title=""></a>
-                    <a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"></a>
-                </div>`
-    })
-    .jin('');
+const imageContainer = document.querySelector('.gallery');
+
+export default function createGallery(images = []){
+    return images.map(({id, pageURL}) => `<li class="gallery__item" id="${id}">
+    <a href="${pageURL}">
+    </li>`)
+    // const markup = images.map((image) => {
+    //     return `<div class="gallery">
+    //                 <a href="images/image1.jpg"><img src="images/thumbs/thumb1.jpg" alt="" title=""></a>
+    //                 <a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"></a>
+    //             </div>`
+    // })
+    .join('');
     images.refresh();
     imageContainer.innerHTML = markup;
-
+    imageContainer.insertAdjacentHTML('beforeend', markup);
 };
+ const gallery = document.querySelector('.gallery');
 
 export function clearGallery(){
     imageContainer.innerHTML = '';

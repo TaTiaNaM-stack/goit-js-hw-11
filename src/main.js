@@ -12,14 +12,14 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 import axios from "axios";
 
-
+import createGallery, {clearGallery} from './js/render-functions.js';
 import {showLoader, hideLoader}  from './js/render-functions.js';
 
-const form = document.querySelector('#search-form');
+const form = document.querySelector('.form');
 const input = document.querySelector('input[name="search-text"]');
-const imageContainer = document.querySelector('.gallery-container');
+const imageContainer = document.querySelector('.gallery');
 let currentPage = 1;
-let currentQuery = '';
+ 
 const imagesPerPage = 12;
 form.addEventListener('submit', onSearch);
 
@@ -36,10 +36,10 @@ async function onSearch(event){
     }
     clearGallery();
     showLoader();
-    currentQuery = query;
+
     currentPage = 1;
     try {
-        const data = await getImagesByQuery(`${currentQuery}&page=${currentPage}&per_page=${imagesPerPage}`);
+        const data = await getImagesByQuery(`${query}&page=${currentPage}&per_page=${imagesPerPage}`);
         if (data.hits.length === 0) {
             iziToast.error({
                 title: 'No Results',
@@ -64,24 +64,47 @@ async function onSearch(event){
         hideLoader();
     }
 }
+const query = input.value;
+axios.defaults.baseURL = 'https://pixabay.com/api/';
+axios.defaults.headers.common['x-api-key'] = import.meta.env.VITE_API_KEY;
+var VITE_API_KEY = '54321863-b2668d69a653290eef8a021dd';
+var URL = "https://pixabay.com/api/?key="+VITE_API_KEY+"&q="+encodeURIComponent('red roses');
+      
+axios.defaults.params = {
+    key: '54321863-b2668d69a653290eef8a021dd',
+    image_type: 'photo',
+    orientation: 'horizontal',
+    safesearch: true,
+    q: query,
+    page: currentPage,
+    per_page: imagesPerPage
+};
 
-window.addEventListener('scroll', async () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-        currentPage += 1;
-        showLoader();
-        try {
-            const data = await getImagesByQuery(`${currentQuery}&page=${currentPage}&per_page=${imagesPerPage}`);
-            if (data.hits.length > 0) {
-                createGallery(data.hits);
-            }
-        } catch (error) {
-            iziToast.error({
-                title: 'Error', 
-                message: 'An error occurred while fetching more images.',
-                position: 'topRight'
-            });
-        } finally {
-            hideLoader();
-        }
-    }
-});
+axios.get(`?q=${query}`)
+    .then(({data}) => {
+        const imageMarkup = createGallery(data.hits);
+        imageContainer.insertAdjacentHTML('beforeend', imageMarkup);
+
+    })
+    .catch(error => console.error('Error:', error));
+
+// window.addEventListener('scroll', async () => {
+//     if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+//         currentPage += 1;
+//         showLoader();
+//         try {
+//             const data = await getImagesByQuery(`${query}&page=${currentPage}&per_page=${imagesPerPage}`);
+//             if (data.hits.length > 0) {
+//                 createGallery(data.hits);
+//             }
+//         } catch (error) {
+//             iziToast.error({
+//                 title: 'Error', 
+//                 message: 'An error occurred while fetching more images.',
+//                 position: 'topRight'
+//             });
+//         } finally {
+//             hideLoader();
+//         }
+//     }
+// });
