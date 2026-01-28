@@ -1,16 +1,19 @@
 const imageContainer = document.querySelector('.gallery');
 
 export default function createGallery(images = []){
-    return images.map(({id, pageURL}) => `<li class="gallery__item" id="${id}">
+    const imagesMarkup = images.map(({id, pageURL}) => {
+        return `<li class="gallery_item" id="${id}">
     <a href="${pageURL}">
-    </li>`)
-    // const markup = images.map((image) => {
+    </li>`;
+    })
+    // const imagesMarkup = images.map((image) => {
     //     return `<div class="gallery">
     //                 <a href="images/image1.jpg"><img src="images/thumbs/thumb1.jpg" alt="" title=""></a>
     //                 <a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"></a>
     //             </div>`
     // })
     .join('');
+    return imagesMarkup;
 };
  const gallery = document.querySelector('.gallery');
 
@@ -39,3 +42,7 @@ export function hideLoader(){
         document.body.removeChild(loader);
     }
 };
+
+export function appendImagesToGallery(imagesMarkup){
+    imageContainer.insertAdjacentHTML('beforeend', imagesMarkup);
+}

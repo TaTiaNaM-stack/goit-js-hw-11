@@ -12,6 +12,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 import axios from "axios";
 
+import appendImagesToGallery from './js/render-functions.js';
 import createGallery, {clearGallery} from './js/render-functions.js';
 import {showLoader, hideLoader}  from './js/render-functions.js';
 import getImagesByQuery from './js/pixabay-api.js';
@@ -39,7 +40,7 @@ async function onSearch(event){
 
     currentPage = 1;
     try {
-        const data = await getImagesByQuery(`?${query}&page=${currentPage}&per_page=${imagesPerPage}`);
+        const data = await getImagesByQuery(`${query}&page=${currentPage}&per_page=${imagesPerPage}`);
         if (data.hits.length === 0) {
             iziToast.error({
                 title: 'No Results',
@@ -83,8 +84,7 @@ axios.defaults.params = {
 
 axios.get(`?q=${query}`)
     .then(({data}) => {
-        const imageMarkup = createGallery(data.hits);
-        imageContainer.insertAdjacentHTML('beforeend', imageMarkup);
+        appendImagesToGallery(createGallery(data.hits));
 
     })
     .catch(error => console.error('Error:', error));
