@@ -39,7 +39,7 @@ async function onSearch(event){
 
     currentPage = 1;
     try {
-        const data = await getImagesByQuery(`${query}&page=${currentPage}&per_page=${imagesPerPage}`);
+        const data = await getImagesByQuery(`?${query}&page=${currentPage}&per_page=${imagesPerPage}`);
         if (data.hits.length === 0) {
             iziToast.error({
                 title: 'No Results',
