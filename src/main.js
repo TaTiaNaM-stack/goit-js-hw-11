@@ -1,5 +1,3 @@
-import fetchData from './js/pixabay-api.js';
-import moduleName from './js/render-functions.js';
 import './css/styles.css';
 
 import iziToast from "izitoast";
@@ -19,7 +17,7 @@ import getImagesByQuery from './js/pixabay-api.js';
 const form = document.querySelector('.form');
 const input = document.querySelector('input[name="search-text"]');
 const imageContainer = document.querySelector('.gallery');
-let currentPage = 1;
+
  
 const imagesPerPage = 12;
 form.addEventListener('submit', onSearch);
@@ -38,9 +36,9 @@ async function onSearch(event){
     clearGallery();
     showLoader();
 
-    currentPage = 1;
+
     try {
-        const data = await getImagesByQuery(`${query}&page=${currentPage}&per_page=${imagesPerPage}`);
+        const data = await getImagesByQuery(query);
         if (data.hits.length === 0) {
             iziToast.error({
                 title: 'No Results',
