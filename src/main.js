@@ -10,8 +10,8 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 
 import axios from "axios";
 
-import appendImagesToGallery from './js/render-functions.js';
-import createGallery, {clearGallery} from './js/render-functions.js';
+// import appendImagesToGallery from './js/render-functions.js';
+import createGallery, {clearGallery, appendImagesToGallery} from './js/render-functions.js';
 import {showLoader, hideLoader}  from './js/render-functions.js';
 import getImagesByQuery from './js/pixabay-api.js';
 const form = document.querySelector('.form');
@@ -38,18 +38,19 @@ async function onSearch(event){
 
 
     try {
-        const data = await getImagesByQuery(query);
-        if (data.hits.length === 0) {
+        const dataImg = await getImagesByQuery(query);
+        console.log(dataImg);
+        if (dataImg.hits.length === 0) {
             iziToast.error({
                 title: 'No Results',
                 message: 'Sorry, there are no images matching your search query. Please try again!',
                 position: 'topRight'
             });
         } else {
-            appendImagesToGallery(createGallery(data.hits));
+            appendImagesToGallery(createGallery(dataImg.hits));
             iziToast.success({
                 title: 'Success',
-                message: `Found ${data.totalHits} images.`,
+                message: `Found ${dataImg.totalHits} images.`,
                 position: 'topRight'
             });
         }
@@ -64,6 +65,12 @@ async function onSearch(event){
         hideLoader();
     }
 }
+clearGallery();
+
+
+
+
+
 // const query = input.value;
 // axios.defaults.baseURL = 'https://pixabay.com/api/';
 // axios.defaults.headers.common['x-api-key'] = import.meta.env.VITE_API_KEY;

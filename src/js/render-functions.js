@@ -1,15 +1,43 @@
-const imageContainer = document.querySelector('.gallery');
+import SimpleLightbox from "simplelightbox";
 
-export default function createGallery(images = []){
+import "simplelightbox/dist/simple-lightbox.min.css";
+
+const imageContainer = document.querySelector('.gallery');
+const lightbox = new SimpleLightbox('.gallery_item a', { 
+     tags: 'alt',
+    largeImageURL: 'src',
+    webformatURL: 'src',
+    likes: 0,
+    views: 0,
+    comments: 0,
+    downloads: 0
+});
+
+export default function createGallery(images = []) {
     const imagesMarkup = images.map(({id, pageURL}) => {
         return `<li class="gallery_item" id="${id}">
-    <a href="${pageURL}">
+    <a href="${pageURL}"><img src="${webformatURL}" alt="${tags}" loading="lazy" class="gallery_image"/>
+    <div class="info">
+        <p class="info_item">
+            <b>Likes</b> ${likes}
+        </p>
+        <p class="info_item">   
+            <b>Views</b> ${views}
+        </p>
+        <p class="info_item">
+            <b>Comments</b> ${comments}
+        </p>
+        <p class="info_item">
+            <b>Downloads</b> ${downloads}
+        </p>
+    </div>
+    </a>
     </li>`;
     })
     .join('');
     return imagesMarkup;
 };
- const gallery = document.querySelector('.gallery');
+
 
 export function clearGallery(){
     imageContainer.innerHTML = '';
