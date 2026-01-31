@@ -93,3 +93,21 @@ button[type="submit"]:hover{
           75%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
           100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
       }
+      .gallery{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px;
+}
+.gallery-item{
+    position: relative;
+    overflow: hidden;
+}
+.gallery-item img{
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+.gallery-item:hover img{
+    transform: scale(1.05);
+}
