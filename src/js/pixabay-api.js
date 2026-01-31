@@ -14,7 +14,8 @@ export default async function getImagesByQuery(query){
     }
 
 });
-    return response.data;
+    const options = response.data;
+    return options;
 }
 
 

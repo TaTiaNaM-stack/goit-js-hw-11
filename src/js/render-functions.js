@@ -1,6 +1,10 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
+import axios from "axios";
+import getImagesByQuery from './pixabay-api.js';
+const BASE_URL = "https://pixabay.com/api/";
 const imageContainer = document.querySelector('.gallery');
+getImagesByQuery();
 const options = { 
      tags: 'alt',
     largeImageURL: 'data-source',
@@ -44,9 +48,15 @@ export function clearGallery(){
 };
 
 export function showLoader(){
-
-
-
+const loader = document.querySelector('.loader');
+class Loader {
+    constructor() {
+        this.loader = document.createElement('div');
+       
+        document.body.appendChild(this.loader);
+    }
+}
+new Loader();
 };
 
 export function hideLoader(){
