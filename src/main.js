@@ -35,8 +35,6 @@ async function onSearch(event){
     }
     clearGallery();
     showLoader();
-
-
     try {
         const dataImg = await getImagesByQuery(query);
         console.log(dataImg);
@@ -65,7 +63,7 @@ async function onSearch(event){
         hideLoader();
     }
 }
-clearGallery();
+
 
 
 

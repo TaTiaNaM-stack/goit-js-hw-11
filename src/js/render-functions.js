@@ -1,40 +1,40 @@
 import SimpleLightbox from "simplelightbox";
-
 import "simplelightbox/dist/simple-lightbox.min.css";
-
 const imageContainer = document.querySelector('.gallery');
-const lightbox = new SimpleLightbox('.gallery_item a', { 
+const options = { 
      tags: 'alt',
-    largeImageURL: 'src',
+    largeImageURL: 'data-source',
     webformatURL: 'src',
     likes: 0,
     views: 0,
     comments: 0,
     downloads: 0
-});
+}
+const lightbox = new SimpleLightbox('.gallery_item a', options);
 
-export default function createGallery(images = []) {
+export default function createGallery(images = [], options = {}) {
     const imagesMarkup = images.map(({id, pageURL}) => {
         return `<li class="gallery_item" id="${id}">
-    <a href="${pageURL}"><img src="${webformatURL}" alt="${tags}" loading="lazy" class="gallery_image"/>
+    <a href="${pageURL}"><img src="${options.webformatURL}"  data-source="${options.largeImageURL} alt="${options.tags}" loading="lazy" class="gallery_image"/>
     <div class="info">
         <p class="info_item">
-            <b>Likes</b> ${likes}
+            <b>Likes</b> ${options.likes}
         </p>
         <p class="info_item">   
-            <b>Views</b> ${views}
+            <b>Views</b> ${options.views}
         </p>
         <p class="info_item">
-            <b>Comments</b> ${comments}
+            <b>Comments</b> ${options.comments}
         </p>
         <p class="info_item">
-            <b>Downloads</b> ${downloads}
+            <b>Downloads</b> ${options.downloads}
         </p>
     </div>
     </a>
     </li>`;
     })
     .join('');
+    lightbox.refresh();
     return imagesMarkup;
 };
 
@@ -44,17 +44,9 @@ export function clearGallery(){
 };
 
 export function showLoader(){
-    const loader = document.createElement('div');
-    loader.className = 'Loading images, please wait...';
-    document.body.appendChild(loader);
-    loader.style.display = 'block';
-    loader.style.position = 'fixed';
-    loader.style.top = '50%';
-    loader.style.left = '50%';
-    loader.style.transform = 'translate(-50%, -50%)';
-    loader.style.padding = '20px';
-    loader.style.backgroundColor = '#fff';
-    loader.style.color = 'rgba(0, 0, 0, 0.8)';
+
+
+
 };
 
 export function hideLoader(){
