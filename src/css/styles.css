@@ -111,3 +111,6 @@ button[type="submit"]:hover{
 .gallery-item:hover img{
     transform: scale(1.05);
 }
+.visibility{
+  display: none;
+}
