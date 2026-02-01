@@ -20,6 +20,7 @@ body{
   margin: 38px auto;
   display: flex;
   gap: 8px;
+  margin-bottom: 32px;
 }
 
 input[type="text"]{
@@ -94,14 +95,22 @@ button[type="submit"]:hover{
           100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
       }
       .gallery{
+        max-width: 1150px;
+    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
     padding: 20px;
+    row-gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 24px;
+    flex-direction: row;
 }
 .gallery-item{
     position: relative;
     overflow: hidden;
+    width: 360px;
+    height: 200px;
 }
 .gallery-item img{
     width: 100%;
@@ -114,3 +123,26 @@ button[type="submit"]:hover{
 .visibility{
   display: none;
 }
+.info{
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    background-color: #f0f0f0;
+    gap: 24px;
+
+}
+.info_item{
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 7px;
+  line-height: 133%;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+    

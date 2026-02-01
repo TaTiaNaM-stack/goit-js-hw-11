@@ -6,9 +6,9 @@ const imageContainer = document.querySelector('.gallery');
 const lightbox = new SimpleLightbox('.gallery_item a');
 
 export default function createGallery(images = []) {
-    const imagesMarkup = images.map(({id, pageURL, webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => {
+    const imagesMarkup = images.map(({id, webformatURL, largeImageURL, tags, likes, views, comments, downloads}) => {
         return `<li class="gallery_item" id="${id}">
-    <a href="${pageURL}"><img src="${webformatURL}"  data-source="${largeImageURL} alt="${tags}" loading="lazy" class="gallery_image"/>
+    <a href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}" loading="lazy" class="gallery_image"/>
     <div class="info">
         <p class="info_item">
             <b>Likes</b> ${likes}
